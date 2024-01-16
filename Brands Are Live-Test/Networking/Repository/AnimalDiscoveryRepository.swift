@@ -15,7 +15,7 @@ class AnimalDiscoveryRepository {
     }
 
     func getDetailAnimal(animal: String, completion: @escaping (Result<[String: Any], Error>) -> Void) {
-        var partUrl: String = "?name=\(animal)"
+        let partUrl: String = "?name=\(animal)"
         guard let url = URL(string: apiNinjaBaseUrl + ListUrls.GET_ANIMAL + partUrl) else {
             completion(.failure(HttpError.badURL))
             return
@@ -27,7 +27,7 @@ class AnimalDiscoveryRepository {
     }
 
     func getAnimalPhotos(animal: String, completion: @escaping (Result<[String: Any], Error>) -> Void) {
-        var partUrl: String = "?query=\(animal)&per_page=10"
+        let partUrl: String = "?query=\(animal)&per_page=10"
         guard let url = URL(string: apiNinjaBaseUrl + ListUrls.GET_PHOTO_DETAIL + partUrl) else {
             completion(.failure(HttpError.badURL))
             return
