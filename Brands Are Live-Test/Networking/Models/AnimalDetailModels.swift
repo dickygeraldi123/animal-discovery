@@ -9,6 +9,7 @@ import Foundation
 
 class AnimalDetailModels: NSObject {
     var name: String = ""
+    var images: [String] = []
     var taxonomy: TaxonomyModels = TaxonomyModels()
     var animalLocations: [String] = []
     var characteristics: CharacteristicsModels = CharacteristicsModels()
@@ -16,11 +17,25 @@ class AnimalDetailModels: NSObject {
     static func createObject(_ dict: [String: Any]) -> AnimalDetailModels {
         let new: AnimalDetailModels = AnimalDetailModels()
         new.name = dict["name"] as? String ?? ""
+        new.images = dict["images"] as? [String] ?? []
         new.taxonomy = TaxonomyModels.createObject(dict["taxonomy"] as? [String: Any] ?? [:])
         new.animalLocations = dict["locations"] as? [String] ?? []
         new.characteristics = CharacteristicsModels.createObject(dict["characteristics"] as? [String: Any] ?? [:])
 
         return new
+    }
+
+    func getAllLocations() -> String {
+        var result: String = ""
+        for location in animalLocations {
+            if result.isEmpty {
+                result += "\(location)"
+            } else {
+                result += ", \(location)"
+            }
+        }
+
+        return result
     }
 }
 
