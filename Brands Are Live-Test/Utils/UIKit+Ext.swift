@@ -12,7 +12,7 @@ extension UIImageView {
     func loadImage(
         url: String?,
         indicatorType: IndicatorType = .activity,
-        placeholder: UIImage = UIImage(),
+        placeholder: UIImage = UIImage(named: "placeholder")!,
         onSuccess: ((_ image: UIImage) -> Void)? = nil,
         onFailure: ((_ error: KingfisherError) -> Void)? = nil
     ) {
