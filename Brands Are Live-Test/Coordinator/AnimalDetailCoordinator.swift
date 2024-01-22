@@ -30,4 +30,10 @@ final class AnimalDetailCoordinator {
     func resign() {
         navigationController?.popViewController(animated: true)
     }
+
+    func showAnimalGallery(_ listImages: [AnimalPhotosModels], idx: Int) {
+        guard let nc = navigationController else { return }
+
+        PhotoPreviewCoordinator(navigationController: nc, listOfUrlImages: listImages, indexClick: idx).start()
+    }
 }

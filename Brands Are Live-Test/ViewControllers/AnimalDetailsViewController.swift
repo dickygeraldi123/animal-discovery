@@ -254,6 +254,11 @@ extension AnimalDetailsViewController: UICollectionViewDelegate, UICollectionVie
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vm = self.viewModel.arrayOfAnimalPhotos.value
+        viewModel.didSelectImage.onNext((vm, indexPath.row))
+    }
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.size.width/2, height: CGFloat.random(in: 200...500))
     }

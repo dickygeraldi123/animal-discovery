@@ -10,5 +10,6 @@ target 'Brands Are Live-Test' do
    pod 'Kingfisher', "7.9.0"
    pod 'CHTCollectionViewWaterfallLayout'
    pod 'ReachabilitySwift'
+   pod 'Lightbox'
 
 end

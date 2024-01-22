@@ -28,7 +28,7 @@ final class AnimalDiscoveryCoordinator {
 
     func showDetailAnimals(animalName: String) {
         guard let nc = navigationController else { return }
-
+        
         AnimalDetailCoordinator(navigationController: nc, animalFilter: animalName).start()
     }
 }

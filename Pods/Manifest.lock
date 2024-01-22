@@ -1,8 +1,13 @@
 PODS:
+  - Cache (6.0.0)
   - CHTCollectionViewWaterfallLayout (0.9.10):
     - CHTCollectionViewWaterfallLayout/Swift (= 0.9.10)
   - CHTCollectionViewWaterfallLayout/Swift (0.9.10)
+  - Imaginary (5.0.0):
+    - Cache (~> 6.0.0)
   - Kingfisher (7.9.0)
+  - Lightbox (2.5.0):
+    - Imaginary (~> 5.0.0)
   - ReachabilitySwift (5.0.0)
   - RxCocoa (6.6.0):
     - RxRelay (= 6.6.0)
@@ -14,27 +19,34 @@ PODS:
 DEPENDENCIES:
   - CHTCollectionViewWaterfallLayout
   - Kingfisher (= 7.9.0)
+  - Lightbox
   - ReachabilitySwift
   - RxCocoa
   - RxSwift
 
 SPEC REPOS:
   trunk:
+    - Cache
     - CHTCollectionViewWaterfallLayout
+    - Imaginary
     - Kingfisher
+    - Lightbox
     - ReachabilitySwift
     - RxCocoa
     - RxRelay
     - RxSwift
 
 SPEC CHECKSUMS:
+  Cache: 4ca7e00363fca5455f26534e5607634c820ffc2d
   CHTCollectionViewWaterfallLayout: b989a459788d7657ac010e03bc0f7eedca95a420
+  Imaginary: cf5e3a7dd6ab1dcbd47ba8ce5edf2307c4e99eb3
   Kingfisher: 59f908b6d2f403b0a3e539debb0eec05cb27002c
+  Lightbox: cc3d5124f024fa8197fd23f913160db1c61a1852
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   RxCocoa: 44a80de90e25b739b5aeaae3c8c371a32e3343cc
   RxRelay: 45eaa5db8ee4fb50e5ebd57deec0159e97fa51e6
   RxSwift: a4b44f7d24599f674deebd1818eab82e58410632
 
-PODFILE CHECKSUM: fd75b746acc9e6f1afad7468a374b802e85af652
+PODFILE CHECKSUM: c32c80c80bdc36d5279616d0a09f8f3f7dc93f24
 
 COCOAPODS: 1.14.3
