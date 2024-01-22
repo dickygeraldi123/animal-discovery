@@ -22,6 +22,7 @@ final class AnimalDetailViewModel {
     var arrayOfAnimalData = BehaviorRelay<[AnimalDetailModels]>(value: [])
     var arrayOfAnimalPhotos = BehaviorRelay<[AnimalPhotosModels]>(value: [])
     var onCloseButtonTap = PublishSubject<Void>()
+    var didSelectImage = PublishSubject<([AnimalPhotosModels], Int)>()
 
     private let disposeBag = DisposeBag()
     
@@ -42,6 +43,12 @@ final class AnimalDetailViewModel {
         onCloseButtonTap.subscribe { [weak self] _ in
             if let self = self {
                 self.coordinator.resign()
+            }
+        }.disposed(by: disposeBag)
+
+        didSelectImage.subscribe { [weak self] data in
+            if let self = self {
+                self.coordinator.showAnimalGallery(data.0, idx: data.1)
             }
         }.disposed(by: disposeBag)
     }

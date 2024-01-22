@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		620CA4F62B5810E700D31CE6 /* animals.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 620CA4F42B5810E700D31CE6 /* animals.xcdatamodeld */; };
+		62390CD32B5EB3D300E1DA3C /* PhotosPreviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62390CD22B5EB3D300E1DA3C /* PhotosPreviewViewModel.swift */; };
+		62390CDC2B5EBDBE00E1DA3C /* PhotoPreviewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62390CDB2B5EBDBE00E1DA3C /* PhotoPreviewCoordinator.swift */; };
 		624453EC2B5BAE0C0084F067 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624453EB2B5BAE0C0084F067 /* BaseViewController.swift */; };
 		624453EF2B5BAEED0084F067 /* NoInternetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624453ED2B5BAEED0084F067 /* NoInternetViewController.swift */; };
 		624453F02B5BAEED0084F067 /* NoInternetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 624453EE2B5BAEED0084F067 /* NoInternetViewController.xib */; };
@@ -61,6 +63,8 @@
 /* Begin PBXFileReference section */
 		28F606B526A82429E6F2C8F6 /* Pods_Brands_Are_Live_Test.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Brands_Are_Live_Test.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		620CA4F52B5810E700D31CE6 /* Animals.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Animals.xcdatamodel; sourceTree = "<group>"; };
+		62390CD22B5EB3D300E1DA3C /* PhotosPreviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosPreviewViewModel.swift; sourceTree = "<group>"; };
+		62390CDB2B5EBDBE00E1DA3C /* PhotoPreviewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPreviewCoordinator.swift; sourceTree = "<group>"; };
 		624453EB2B5BAE0C0084F067 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		624453ED2B5BAEED0084F067 /* NoInternetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoInternetViewController.swift; sourceTree = "<group>"; };
 		624453EE2B5BAEED0084F067 /* NoInternetViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoInternetViewController.xib; sourceTree = "<group>"; };
@@ -144,6 +148,30 @@
 			path = CoreData;
 			sourceTree = "<group>";
 		};
+		62390CD42B5EB8A900E1DA3C /* Photo Preview */ = {
+			isa = PBXGroup;
+			children = (
+				62F595082B5E9B4100B9D745 /* PhotoPreviewViewController.swift */,
+			);
+			path = "Photo Preview";
+			sourceTree = "<group>";
+		};
+		62390CD52B5EB8B400E1DA3C /* Photo Preview */ = {
+			isa = PBXGroup;
+			children = (
+				62390CD22B5EB3D300E1DA3C /* PhotosPreviewViewModel.swift */,
+			);
+			path = "Photo Preview";
+			sourceTree = "<group>";
+		};
+		62390CD62B5EB8C100E1DA3C /* Photo Preview */ = {
+			isa = PBXGroup;
+			children = (
+				62F595092B5E9B4100B9D745 /* PhotoPreviewViewController.xib */,
+			);
+			path = "Photo Preview";
+			sourceTree = "<group>";
+		};
 		625EE5B62B58091800D0BE3C /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -205,6 +233,7 @@
 			children = (
 				62F2125B2B5837B800DC7968 /* AnimalDetailCoordinator.swift */,
 				6281123A2B56A4C500BBECC4 /* AnimalDiscoveryCoordinator.swift */,
+				62390CDB2B5EBDBE00E1DA3C /* PhotoPreviewCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -233,6 +262,7 @@
 		6281123E2B56A4E700BBECC4 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				62390CD52B5EB8B400E1DA3C /* Photo Preview */,
 				628FC8722B56FE39002584AE /* HomeDiscoveryViewModels.swift */,
 				62F2125D2B583C0D00DC7968 /* AnimalDetailViewModel.swift */,
 			);
@@ -242,10 +272,10 @@
 		6281123F2B56A4EF00BBECC4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				62390CD62B5EB8C100E1DA3C /* Photo Preview */,
 				628FC8782B57145D002584AE /* AnimalDetailsViewController.xib */,
 				62E9DFBB2B56C8E000F6F83A /* HomeDiscoveryViewController.xib */,
 				624453EE2B5BAEED0084F067 /* NoInternetViewController.xib */,
-				62F595092B5E9B4100B9D745 /* PhotoPreviewViewController.xib */,
 				62E9DFBF2B56D43800F6F83A /* Cell */,
 			);
 			path = Views;
@@ -254,11 +284,11 @@
 		628112402B56A4F600BBECC4 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				62390CD42B5EB8A900E1DA3C /* Photo Preview */,
 				628FC8772B57145D002584AE /* AnimalDetailsViewController.swift */,
 				624453EB2B5BAE0C0084F067 /* BaseViewController.swift */,
 				62E9DFBA2B56C8E000F6F83A /* HomeDiscoveryViewController.swift */,
 				624453ED2B5BAEED0084F067 /* NoInternetViewController.swift */,
-				62F595082B5E9B4100B9D745 /* PhotoPreviewViewController.swift */,
 				625EE5B62B58091800D0BE3C /* Cell */,
 			);
 			path = ViewControllers;
@@ -467,6 +497,7 @@
 				624453F42B5BC5970084F067 /* FavoriteAnimalDataModel.swift in Sources */,
 				62F2125C2B5837B800DC7968 /* AnimalDetailCoordinator.swift in Sources */,
 				62E9DFCA2B56F4BA00F6F83A /* FavoriteAnimalView.swift in Sources */,
+				62390CDC2B5EBDBE00E1DA3C /* PhotoPreviewCoordinator.swift in Sources */,
 				625EE5B82B58094A00D0BE3C /* CharacteristicAnimalView.swift in Sources */,
 				62E9DFC62B56D76F00F6F83A /* UIKit+Ext.swift in Sources */,
 				620CA4F62B5810E700D31CE6 /* animals.xcdatamodeld in Sources */,
@@ -488,6 +519,7 @@
 				62F5950A2B5E9B4100B9D745 /* PhotoPreviewViewController.swift in Sources */,
 				62E9DFB92B56C1EF00F6F83A /* AnimalPhotosModels.swift in Sources */,
 				6281125B2B56A8D400BBECC4 /* Constant.swift in Sources */,
+				62390CD32B5EB3D300E1DA3C /* PhotosPreviewViewModel.swift in Sources */,
 				628FC8732B56FE39002584AE /* HomeDiscoveryViewModels.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

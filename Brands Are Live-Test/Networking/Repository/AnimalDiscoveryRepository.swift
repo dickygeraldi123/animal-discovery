@@ -27,7 +27,7 @@ class AnimalDiscoveryRepository {
     }
 
     func getAnimalPhotos(animal: String, completion: @escaping (Result<String, Error>) -> Void) {
-        let partUrl: String = "?query=\(animal)&per_page=100"
+        let partUrl: String = "?query=\(animal)&per_page=50"
         guard let url = URL(string: apiPexelsBaseUrl + ListUrls.GET_PHOTO_DETAIL + partUrl) else {
             completion(.failure(HttpError.badURL))
             return
