@@ -6,31 +6,50 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
-class HomeDiscoveryViewController: UIViewController {
-    
+class HomeDiscoveryViewController: BaseViewController {
+
+    // MARK: - All Properties
     @IBOutlet weak var imageCollectionView: UICollectionView!
     @IBOutlet weak var collectionViewFlowLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var svFavoriteContent: UIStackView!
     @IBOutlet weak var emptyView: UIView!
+    @IBOutlet weak var svFilterContent: UIStackView!
     
-    var centerCell: AnimalImageCollectionViewCell?
-    let cellScale: CGFloat = 0.4
-    var arrayOfAnimals: [AnimalDetailModels] = [
-        AnimalDetailModels.createObject(["name": "Elephant", "images": ["https://images.pexels.com/photos/6551925/pexels-photo-6551925.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800"]]),
-        AnimalDetailModels.createObject(["name": "Lion", "images": ["https://images.pexels.com/photos/4032590/pexels-photo-4032590.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800"]]),
-        AnimalDetailModels.createObject(["name": "Fox", "images": ["https://images.pexels.com/photos/918595/pexels-photo-918595.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800"]]),
-        AnimalDetailModels.createObject(["name": "Dog", "images": ["https://images.pexels.com/photos/220938/pexels-photo-220938.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800"]]),
-        AnimalDetailModels.createObject(["name": "Shark", "images": ["https://images.pexels.com/photos/6970122/pexels-photo-6970122.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800"]]),
-        AnimalDetailModels.createObject(["name": "Turtle", "images": ["https://images.pexels.com/photos/2765872/pexels-photo-2765872.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800"]]),
-        AnimalDetailModels.createObject(["name": "Whale", "images": ["https://images.pexels.com/photos/4666751/pexels-photo-4666751.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800"]]),
-        AnimalDetailModels.createObject(["name": "Penguin", "images": ["https://images.pexels.com/photos/689777/pexels-photo-689777.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800"]])
-    ]
+    private let disposeBag = DisposeBag()
+    private var centerCell: AnimalImageCollectionViewCell?
+    private let cellScale: CGFloat = 0.4
+    private var isFirst: Bool = true
+
+    var viewModel: HomeDiscoveryViewModels
+
+    init(viewModel: HomeDiscoveryViewModels) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupCollectionView()
+        observeViewModel()
+
+        viewModel.viewLoaded()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        navigationController?.navigationBar.isHidden = true
+        if !isFirst {
+            viewModel.fetchFavoriteAnimals()
+        }
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -38,7 +57,33 @@ class HomeDiscoveryViewController: UIViewController {
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        imageCollectionView.scrollToItem(at: IndexPath(item: 100/2, section: 0), at: .centeredHorizontally, animated: true)
+        if isFirst {
+            imageCollectionView.scrollToItem(at: IndexPath(item: 100/2, section: 0), at: .centeredHorizontally, animated: true)
+            isFirst = false
+        }
+    }
+}
+
+// MARK: - Observe ViewModel
+extension HomeDiscoveryViewController {
+    private func observeViewModel() {
+        viewModel.arrayOfAnimalCharacters.subscribe(onNext: { [weak self] _ in
+            guard let self = self else { return }
+
+            self.imageCollectionView.reloadData()
+        }).disposed(by: disposeBag)
+
+        viewModel.arrayOfAnimalFilter.subscribe(onNext: { [weak self] _ in
+            guard let self = self else { return }
+
+            self.updateFilterView()
+        }).disposed(by: disposeBag)
+
+        viewModel.arrayOfFavoriteAnimals.subscribe(onNext: { [weak self] _ in
+            guard let self = self else { return }
+
+            self.updateFavoriteAnimals()
+        }).disposed(by: disposeBag)
     }
 }
 
@@ -57,6 +102,46 @@ extension HomeDiscoveryViewController {
         collectionViewFlowLayout.itemSize = CGSize(width: cellWidth, height: cellHeight)
         imageCollectionView.contentInset = UIEdgeInsets(top: 0, left: insetX, bottom: 0, right: insetX)
     }
+
+    private func updateFilterView() {
+        let arrayOfFilter = viewModel.arrayOfAnimalFilter.value
+
+        if !arrayOfFilter.isEmpty {
+            for filter in arrayOfFilter {
+                if let vw = FilterCategoryTitleView.instanceFromNib() {
+                    vw.titleCategory = filter
+                    vw.isFilterActive = false
+                    vw.onClickCategory = { [weak self] category in
+                        if let self = self {
+                            self.viewModel.getFavoriteByCat(category)
+                        }
+                    }
+                    svFilterContent.addArrangedSubview(vw)
+                }
+            }
+        }
+    }
+
+    private func updateFavoriteAnimals() {
+        let arrayOfFavoriteAnimals = viewModel.arrayOfFavoriteAnimals.value
+        svFavoriteContent.removeAllSubviews()
+        emptyView.isHidden = !arrayOfFavoriteAnimals.isEmpty
+        svFavoriteContent.isHidden = arrayOfFavoriteAnimals.isEmpty
+
+        if !arrayOfFavoriteAnimals.isEmpty {
+            for animal in arrayOfFavoriteAnimals {
+                if let vw = FavoriteAnimalView.instanceFromNib() {
+                    vw.onClickFavoriteAnimal = { [weak self] in
+                        if let self = self {
+                            self.viewModel.didSelectFavoriteAnimals.onNext(animal)
+                        }
+                    }
+                    vw.animalDetailModel = animal
+                    svFavoriteContent.addArrangedSubview(vw)
+                }
+            }
+        }
+    }
 }
 
 // MARK: - Collection View Delegate and Data Source
@@ -67,7 +152,7 @@ extension HomeDiscoveryViewController: UICollectionViewDelegate, UICollectionVie
         }
         
         cell.prepareForReuse()
-        cell.animalModel = arrayOfAnimals[indexPath.item % arrayOfAnimals.count]
+        cell.animalModel = viewModel.arrayOfAnimalCharacters.value[indexPath.item % viewModel.arrayOfAnimalCharacters.value.count]
         
         return cell
     }
@@ -76,6 +161,11 @@ extension HomeDiscoveryViewController: UICollectionViewDelegate, UICollectionVie
         return 100
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vm = viewModel.arrayOfAnimalCharacters.value[indexPath.item % viewModel.arrayOfAnimalCharacters.value.count]
+        viewModel.didSelectAnimals.onNext(vm)
+    }
+
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         let cellWidthIncludingSpacing = collectionViewFlowLayout.itemSize.width + collectionViewFlowLayout.minimumLineSpacing
         

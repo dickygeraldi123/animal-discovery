@@ -8,7 +8,7 @@
 import Foundation
 
 var apiNinjaBaseUrl: String = {
-    return "https://api-ninjas.com/"
+    return "https://api.api-ninjas.com/"
 }()
 
 var apiPexelsBaseUrl: String = {

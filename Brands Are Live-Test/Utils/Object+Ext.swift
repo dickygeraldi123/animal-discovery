@@ -6,6 +6,19 @@
 //
 
 import Foundation
+import SystemConfiguration
+
+func Dlog(_ message: String,
+          function: String = #function,
+          file: String = #file,
+          line: Int = #line,
+          column: Int = #column) {
+    #if DEBUG
+    let string = "\n====================================================\nfile: \(file)\nfunction: \(function)\nline: \(line)\ncolumn: \(column)\nMESSAGE: \(message)\n\n\n"
+    print("\(string)")
+    #else
+    #endif
+}
 
 extension String {
     func convertToDictionary() -> Any? {
@@ -17,5 +30,15 @@ extension String {
             print(error)
         }
         return nil
+    }
+}
+
+extension Array {
+    subscript(safeIndex index: Int) -> Element? {
+        guard index >= 0, index < endIndex else {
+            return nil
+        }
+        
+        return self[index]
     }
 }
