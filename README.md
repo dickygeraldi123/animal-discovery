@@ -37,6 +37,12 @@ This project is using :
 
 <br/>
 
+## What to do next
+
+I need to create a unit test to cover all the cases. Maybe I will use XCTestCase or maybe use Quick, Nimbe for better documentation.
+
+<br/>
+
 ## 👨‍💻 Author
 
 ### Dicky Geraldi
@@ -44,7 +50,6 @@ This project is using :
 [Linkedin](https://www.linkedin.com/in/dickygeraldi/)
 
 <br/>
-
 
 ## 🍁 Licence
 
