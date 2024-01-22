@@ -8,5 +8,7 @@ target 'Brands Are Live-Test' do
    pod 'RxSwift'
    pod 'RxCocoa'
    pod 'Kingfisher', "7.9.0"
+   pod 'CHTCollectionViewWaterfallLayout'
+   pod 'ReachabilitySwift'
 
 end

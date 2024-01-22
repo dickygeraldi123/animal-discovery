@@ -22,6 +22,9 @@ class CharacteristicAnimalView: UIView {
         if let view = views.first(where: { (vw) -> Bool in
             return vw is CharacteristicAnimalView
         }) as? CharacteristicAnimalView {
+            view.layer.borderWidth = 1
+            view.layer.borderColor = UIColor(hex: "000000").cgColor
+            view.layer.cornerRadius = 10
             return view
         }
         return nil
